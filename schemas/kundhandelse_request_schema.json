@@ -26,7 +26,7 @@
 			"additionalProperties": false
 		},
 		"arende": {
-			"description": "I vissa fall vill konsumenter istället för att fråga på en viss person fråga på ett visst ärende (producentärende eller kundärende). Detta kan till exempel använas för att smalna av frågan till ett specifikt ärende, men kan också användas i vissa fall där det kanske inte ännu finns någon lämplig identifierare på kunden. Till exempel har Bolagsverket ärenden om företag som ännu inte fått något organisationsnummer och därför kan de inte identifieras mha organisationsnummer. \r\nOm parameter arende utelämnas ur frågan SKALL parametern kund anges istället.  Det går att ange båda. Svaret kommer då att uppfylla båda kritierierna för kund och ärende.",
+			"description": "I vissa fall vill konsumenter istället för att fråga på en viss person fråga på ett visst ärende (producentärende eller kundärende). Detta kan till exempel användas för att smalna av frågan till ett specifikt ärende, men kan också användas i vissa fall där det kanske inte ännu finns någon lämplig identifierare på kunden. Till exempel har Bolagsverket ärenden om företag som ännu inte fått något organisationsnummer och därför kan de inte identifiera med hjälp av organisationsnummer. \r\nOm parameter arende utelämnas ur frågan ska parametern kund anges istället.  Det går att ange båda. Svaret kommer då att uppfylla båda kritierierna för kund och ärende.",
 			"type": "object",
 			"properties": {
 				"identifierare": {
