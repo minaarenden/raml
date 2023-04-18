@@ -7,50 +7,44 @@
 		"kund": {
 			"description": "Vem frågan gäller. \r\nNuvarande version av tjänstebeskrivningen stödjer inte att hämta kundhändelser för en mindre organisation/kund än vad som går att identifiera med en identifierare (t ex ett delkontor i ett större företag.\r\nOm parametern kund utelämnas ur frågan SKALL parametern arende anges istället. Det går at ange båda, svaret kommer då att uppfylla båda kriterierna för kund och ärende.",
 			"type": "object",
-			"required": false,
 			"properties": {
 				"identifierare": {
 					"description": "Ett värde som unikt identifierar kunden. Vilken typ av identifierare det är bestäms av parametern kund.typ\r\nOm identifieraren är ett personnummer skall det vara 12 siffror enligt formatet ÅÅÅÅMMDDXXXN (alltså fyrsiffrigt år och utan bindestreck)\r\nOm identifieraren är ett organisationsnummer skall det vara 12 siffror. Enskilda firmor får sekelsiffror enligt årtalet personen är född. Övriga får sekelsiffror 16",
-					"required": true,
 					"type": "string"
 				},
 				"tillagg": {
 					"description": "I vissa fall räcker inte kund.identifierare för att unikt identifiera en specifik kund. Då används även detta attribut. Attributet är valfritt så om det inte behövs skall det inte vara med.\r\nEtt exempel när det behövs är för att unikt identifiera en enskild firma hos Bolagsverket. Om en person har flera registrerade enskilda firmor (flera företagsnamn) så differentieras dessa med ett löpnummer. Om konsumenten är ute efter kundhändelser för bara en av dessa enskilda firmor kan konsumenten skriva in löpnumret i detta attribut. Om attributet utelämnas returneras kundhändelser för alla enskilda firmor för aktuellt personnummer.\r\nExakt funktionalitet för detta attribut behöver i förekommande fall specificeras av producenten.",
-					"required": false,
 					"type": "string"
 				},
 				"typ": {
 					"description": "Vilken typ av värde identifieraren är. Möljiga värden är:\r\nPersonnummer\r\nOrganisationsnummer\r\nSamordningsnummer\r\nDet är inte säkert att alla producenter stödjer alla typer av identifierare om det inte är relevant att göra så i deras verksamhet.",
-					"required": true,
 					"type": "string",
 					"enum": ["Personnummer", "Organisationsnummer", "Samordningsnummer"]
 				}
 			},
+			"required": [ "identifierare", "typ"],
 			"additionalProperties": false
 		},
 		"arende": {
 			"description": "I vissa fall vill konsumenter istället för att fråga på en viss person fråga på ett visst ärende (producentärende eller kundärende). Detta kan till exempel använas för att smalna av frågan till ett specifikt ärende, men kan också användas i vissa fall där det kanske inte ännu finns någon lämplig identifierare på kunden. Till exempel har Bolagsverket ärenden om företag som ännu inte fått något organisationsnummer och därför kan de inte identifieras mha organisationsnummer. \r\nOm parameter arende utelämnas ur frågan SKALL parametern kund anges istället.  Det går att ange båda. Svaret kommer då att uppfylla båda kritierierna för kund och ärende.",
 			"type": "object",
-			"required": false,
 			"prodperties": {
 				"identifierare": {
 					"description": "Ett värde som unikt identifierar ärendet. Vilken typ av identifierare det är bestäms av parametern arende.typ",
 					"type": "string",
-					"required": true
 				},
 				"typ": {
 					"description": "Vilken typ av värde identifieraren är. Möjliga värden är:\r\nKonsumentreferens\r\nProducentärendereferens\r\nDiarienummer\r\nKvittensnummer",
 					"type": "string",
-					"required": true,
 					"enum": ["Konsumentreferens", "Producentärendereferens", "Diarienummer", "Kvittensnummer"]
 				}
 			},
+			"required": [ "identifierare", "typ" ],
 			"additionalProperties": false
 		},
 		"kundhandelseTyper": {
 			"description": "Array av kundhändelsetyper som efterfrågas. Varje typ specificeras som en standardiserad enumsträng enligt det namnsättningsformat som gäller för kundhändelsetyper\r\nOm inga kundhändelsetyper skickas in i denna lista är det att likställa med att man efterfrågat alla kundhändelsetyper användaren har rätt att ta del av ",
 			"type": "array",
-			"required": false,
 			"items": {
 				"type": "string"
 			},
@@ -59,15 +53,14 @@
 		"startDatum": {
 			"description": "Startdatum för utsökningen av kundhändelser. Kundhändelser med tidpunkt som är större än eller lika med detta datum kl 00:00 kommer med i svaret\r\nFormat enligt https://dev.dataportal.se/rest-api-profil/datum-och-tidsformat (datumformat, dvs utan klockslag).\r\nOm denna parameter saknas räknas det som att man vill ha kundhändelser tillbaka så länge som det finns kundhändelser hos producenten",
 			"type": "string",
-			"required": false,
 			"pattern": "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$"
 		},
 		"slutDatum": {
 			"description": "Slutdatum för utsökningen av kundhändelser. Kundhändelser med tidpunkt mindre än eller lika med detta datum kl 23:59:59.999 kommer med i svaret\r\nFormat enligt https://dev.dataportal.se/rest-api-profil/datum-och-tidsformat (datumformat, dvs utan klockslag).\r\nOm denna parameter saknas räknas det som att man vill ha kundhändelser så långt fram i tiden som det finns. I de flesta producentärenden borde det betyda att senast möjliga tidpunkt är aktuell tidpunkt för sökningen",
 			"type": "string",
-			"required": false,
 			"pattern": "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$"
 		}
 	},
+	"required": [],
 	"additionalProperties": false
 }

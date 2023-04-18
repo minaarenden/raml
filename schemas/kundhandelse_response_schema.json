@@ -7,57 +7,49 @@
         "metadata": {
             "description": "En behållare i svaret med metadata, som bland annat innehåller information om hur frågan ställdes",
             "type": "object",
-            "required": true,
             "properties": {
                 "kund": {
                     "description": "Vilken kund som frågan ställdes om.\r\nUtelämnas om man instället frågade på ärende",
-                    "required": false,
                     "type": "object",
                     "properties": {
                         "identifierare": {
                             "description": "Identifieraren för kunden. Samma värde som inparametern kund.identifierare",
-                            "required": true,
                             "type": "string"
                         },
                         "tillagg": {
                             "description": "Tillägg för identifiering av kunden. Samma värde som inparametern kund.tillagg.",
-                            "required": false,
                             "type": "string"
                         },
                         "typ": {
                             "description": "Typ av identifierare. Samma värde som inparametern kund.typ",
-                            "required": true,
                             "type": "string"
                         }
                     },
+                    "required": [ "identifierare", "typ" ],
                     "additionalProperties": false
                 },
                 "arende": {
                     "description": "Vilket arende som frågan ställdes om\r\nUtelämnas om man istället frågade på kund",
-                    "required": false,
                     "type": "object",
                     "properties": {
                         "identifierare": {
                             "description": "Identifieraren för ärendet. Samma värde som inparametern arende.identifierare",
-                            "required": true,
                             "type": "string"
                         },
                         "typ": {
                             "description": "Typ av identifierare. Samma värde som inparametern arende.typ",
-                            "required": true,
                             "type": "string"
                         }
                     },
+                    "required": [ "identifierare", "typ" ],
                     "additionalProperties": false
                 },
                 "anvandare": {
                     "description": "Vilken användare som ställde frågan i konsument-systemet. Samma innehåll som paraametern anvandare",
-                    "required": true,
                     "type": "string"
                 },
                 "kundhandelseTyper": {
                     "description": "En lista med kundhändelsetyper som visar vilka som efterfrågades. Samma innehåll som parameter kundhandelseTyper",
-                    "required": false,
                     "type": "array",
                     "items": {
                         "type": "string"
@@ -65,82 +57,68 @@
                 },
                 "startDatum": {
                     "description": "Startdatum för sökningen. Samma innehåll som parametern startDatum",
-                    "required": false,
                     "type": "string"
                 },
                 "slutDatum": {
                     "description": "Slutdatum för sökningen. Samma innehåll som parametern slutDatum",
-                    "required": false,
                     "type": "string"
                 },
                 "onskatSprak": {
                     "description": "Önskat språk för kundhändelser. Samma innehåll som parametern onskatSprak",
-                    "required": false,
                     "type": "string"
                 },
                 "version": {
                     "description": "Version av Mina ärendes standard som producenten implementerat",
-                    "required": true,
                     "type": "string"
                 }
             },
+            "required": [ "anvandare", "version"],
             "additionalProperties": false
         },
         "kundhandelser": {
             "type": "array",
-            "required": false,
             "items": {
                 "type": "object",
                 "properties": {
                     "kundhandelseId": {
                         "description": "Ett ID som unikt identifierar kundhändelsen (även mellan olika producenter)\nGUID kan användas för att garantera att kundhändelse-id blir unikt",
-                        "required": true,
                         "type": "string"
                     },
                     "rubrik": {
                         "description": "Kortfattad beskrivning av händelsen. Skall vara skriven så att den är läsbar för användaren.",
-                        "required": true,
                         "type": "string"
                     },
                     "beskrivning": {
                         "description": "Mer fullödig beskrivning av händelsen. Skall vara skriven så att den är läsbar för användaren.",
-                        "required": true,
                         "type": "string"
                     },
                     "sprak": {
                         "description": "Det språk kundhändelsen är skriven på. Format enligt ISO 639-1",
-                        "required": true,
                         "type": "string"
                     },
                     "producent": {
                         "description": "Visar vem som producerat kundhändelsen. Läsbart för människor. T ex\n\"Skatteverket\"",
-                        "required": true,
                         "type": "string"
                     },
                     "tidpunkt": {
                         "description": "Tidpunkt för när händelsen hände i producentens verksamhetssystem.\r\nFormat enligt https://dev.dataportal.se/rest-api-profil/datum-och-tidsformat",
-                        "required": true,
                         "type": "string",
                         "pattern": "^\\d\\d\\d\\d-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01]) (00|[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9])\\.(\\d{2})$"
                     },
                     "kundhandelseTyp": {
                         "description": "Varje kundhändelse associeras med en typ som beskriver vilken plats i vilken producentärendetyp just den här kundhändelsen handlar om. Till\nexempel kan det vara \"Ansökan mottagen för att bli arbetsgivarregistrerad\" eller \"Beslut fattat om arbetsgivarstöd\"\n6 (6)\r\nDatatypen är en enum-liknande sträng som sätts av respektive producent. Det finns en namnsättningsstandard beskriven i verksamhetsguiden som är till för att undvika krockar mellan producenter.",
-                        "required": true,
                         "type": "string"
                     },
                     "producentarendetKraverKundatgard": {
                         "description": "Visar om kunden 'har bollen' för att få producentärendet att gå vidare eller inte.",
-                        "required": true,
                         "type": "boolean"
                     },
                     "producentarendetKlart": {
                         "description": "Visar om producenten anser att producentärendet är klart i och med denna kundhändelse",
-                        "required": true,
                         "type": "boolean"
                     },
                     "utokadInformation": {
                         "description": "Ett underliggande objekt med icke standardiserat data som är till för att stödja producenters specifika men olika behov. Namnsättning och funktionalitet för detta data skall beskrivas i producentens egna tjänstebeskrivning.",
-                        "required": false,
                         "type": "object",
                         "properties": {
 
@@ -149,36 +127,33 @@
                     },
                     "referenser": {
                         "description": "Ett underliggande objekt med referenser. De referenser som står beskrivna nedan är standardiserade i sin namnsättning, men det står varje producent fritt att lägga till egna referenser utöver dessa.",
-                        "required": false,
                         "type": "object",
                         "properties": {
                             "producentarende": {
                                 "description": "Referens (t ex id) till instans av bakomliggande producentärende. Kan användas för att via anrop till andra tjänster hos producenten komma åt ärendeinformation.",
-                                "required": false,
                                 "type": "string"
                             },
                             "konsumentReferens": {
                                 "description": "Referens som konsumenten satt på ärendet när ärendet skapades. Används för att knyta ihop kundhändelser med producentärenden med kundärenden.",
-                                "required": false,
                                 "type": "string"
                             },
                             "etjanst": {
                                 "description": "URL till en e-tjänst där användaren kan agera vidare. Kan till exempel användas för kundhändelser där kunden uppmanas att agera.",
-                                "required": false,
                                 "type": "string"
                             },
                             "api": {
                                 "description": "URL till ett API som ett konsumentsystem kan anropa för att hjälpa anändaren med vidare agerande utifrån kundhändelsen.",
-                                "required": false,
                                 "type": "string"
                             }
                         },
                         "additionalProperties": true
                     }
                 },
+                "required": [ "kundhandelseId", "rubrik", "beskrivning", "sprak", "producent", "tidpunkt", "kundhandelseTyp", "producentarendetKraverKundatgard", "producentarendetKlart"],
                 "additionalProperties": false
             }
         }
     },
+    "required": [ "metadata" ],
     "additionalProperties": false
 }
