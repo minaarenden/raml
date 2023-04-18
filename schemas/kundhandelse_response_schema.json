@@ -22,7 +22,8 @@
                         },
                         "typ": {
                             "description": "Typ av identifierare. Samma värde som inparametern kund.typ",
-                            "type": "string"
+                            "type": "string",
+                            "enum": ["Personnummer", "Organisationsnummer", "Samordningsnummer"]
                         }
                     },
                     "required": [ "identifierare", "typ" ],
@@ -38,7 +39,8 @@
                         },
                         "typ": {
                             "description": "Typ av identifierare. Samma värde som inparametern arende.typ",
-                            "type": "string"
+                            "type": "string",
+                            "enum": ["Konsumentreferens", "Producentärendereferens", "Diarienummer", "Kvittensnummer"]
                         }
                     },
                     "required": [ "identifierare", "typ" ],
@@ -72,7 +74,21 @@
                     "type": "string"
                 }
             },
-            "required": [ "anvandare", "version"],
+            "allOf": [
+                {
+                    "anyOf": [
+                        {
+                            "required": [ "kund" ]
+                        },
+                        {
+                            "required": [ "arende" ]
+                        }
+                    ]
+                },
+                {
+                    "required": [ "anvandare", "version"]
+                }
+            ],
             "additionalProperties": false
         },
         "kundhandelser": {
