@@ -1,0 +1,31 @@
+#%RAML 1.0
+---
+title: Mina ärendens standardiserade API för kundhändelser
+#baseUri:
+version: v3.1
+
+/kundhandelser:
+  description: Hämtar en eller flera kundhändelser ifrån aktuell producents system. Kundhändelserna är kopplade till en person eller organisation (kund) och framtagna med ett urval specat i frågan.
+  post:
+    headers:
+      anropandeOrganisation:
+        description: Organisationsnummer för anropande konsumentsystem
+        required: true
+        type: string
+      anvandare:
+        description: Personnummer för den användare som initierat frågan i konsumenters tjänst. Om det är fråga om en maskinstartad fråga ifrån konsumenttjänsten (t ex någon batch) behövs en identifierare för att identifiera systemet
+        required: true
+        type: string
+      Accept-Language:
+        description: Det språk konsument-tjänsten (eller egentligen förmodligen användare) önskar kundhändelserna i.  Beskrivet enligt en språk-kod enligt ISO 639-1.  Om denna parameter utelämnas i frågan, eller om producerande system inte stödjer att leverera kundhändelser på detta språk skall svaret innehålla kundhändelser på svenska.
+        required: false
+        type: string
+    body:
+      application/json:
+        type: !include schemas/kundhandelse_request_schema.json
+    responses:
+      200:
+        body:
+          application/json:
+            type: !include schemas/kundhandelse_response_schema.json
+
