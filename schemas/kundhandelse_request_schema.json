@@ -31,7 +31,7 @@
 			"properties": {
 				"identifierare": {
 					"description": "Ett värde som unikt identifierar ärendet. Vilken typ av identifierare det är bestäms av parametern arende.typ",
-					"type": "string",
+					"type": "string"
 				},
 				"typ": {
 					"description": "Vilken typ av värde identifieraren är. Möjliga värden är:\r\nKonsumentreferens\r\nProducentärendereferens\r\nDiarienummer\r\nKvittensnummer",
@@ -43,7 +43,15 @@
 			"additionalProperties": false
 		},
 		"kundhandelseTyper": {
-			"description": "Array av kundhändelsetyper som efterfrågas. Varje typ specificeras som en standardiserad enumsträng enligt det namnsättningsformat som gäller för kundhändelsetyper\r\nOm inga kundhändelsetyper skickas in i denna lista är det att likställa med att man efterfrågat alla kundhändelsetyper användaren har rätt att ta del av ",
+			"description": "Array av kundhändelsetyper som efterfrågas. Varje typ specificeras som en standardiserad enum-sträng enligt det namnsättningsformat som gäller för kundhändelsetyper.\r\nNamnsättningen av kundhändelsetyper har tre delar, en för producent, en för producentärendetyp och en för kundhändelsetyp. Dessa anges med varsin textsträng (stora bokstäver, på svenska, inga å, ä eller ö, understreck mellan ord) och dessa textsträngar är separerade med en punkt. T.ex. kan det vara SKV.MOMS.DEKL_INLAMAD. I parametervärdet kan man välja att inte ange alla tre delarna, utan istället stanna efter bara producent (t.ex. SKV) eller efter producentärendetyp (t.ex. SKV.MOMS). I dessa fall ska producenten svara med alla kundhändelser inom alla kundhändelsetyper som matchar producenten eller producentärendetypen (alltså t.ex. alla inom momsproducentärendetypen om SKV.MOMS anges)",
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"minItems": 0
+		},
+		"taggar": {
+			"description": "Producenten kan definiera taggar (textsträngar) som pekar ut specifika kundhändelsetyper. T.ex. kan man tänka sig att Skatteverket definierar en tag som pekar ut alla kundhändelsetyper som har med företagande att göra, eller med beskattningsverksamheten.\r\nVarje tagg pekar ut specifika producentärendetyper och/eller specifika kundhändelsetyper och om konsumenttjänsten i frågan anger att den är intresserad av en viss tagg skickas alla kundhändelser som matchar de utpekade producentärendetyperna eller kundhändelsetyperna med i svaret.",
 			"type": "array",
 			"items": {
 				"type": "string"

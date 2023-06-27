@@ -57,6 +57,13 @@
                         "type": "string"
                     }
                 },
+                "taggar": {
+                    "description": "En lista med taggar som visar vilka som efterfrågades. Samma innehåll som parametern taggar",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "startDatum": {
                     "description": "Startdatum för sökningen. Samma innehåll som parametern startDatum",
                     "type": "string"
