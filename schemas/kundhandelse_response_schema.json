@@ -78,7 +78,8 @@
                 },
                 "version": {
                     "description": "Version av Mina ärendes standard som producenten implementerat",
-                    "type": "string"
+                    "type": "string",
+                    "enum": ["4.1", "4.0", "3.0", "2.0", "1.1", "1.0"]
                 }
             },
             "allOf": [
