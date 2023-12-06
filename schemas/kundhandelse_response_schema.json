@@ -154,19 +154,19 @@
                         "properties": {
                             "producentarende": {
                                 "description": "Referens (t ex id) till instans av bakomliggande producentärende. Kan användas för att via anrop till andra tjänster hos producenten komma åt ärendeinformation.",
-                                "type": "string"
+                                "$ref": "#/$defs/referens"
                             },
                             "konsumentReferens": {
                                 "description": "Referens som konsumenten satt på ärendet när ärendet skapades. Används för att knyta ihop kundhändelser med producentärenden och kundärenden.",
-                                "type": "string"
+                                "$ref": "#/$defs/referens"
                             },
                             "etjanst": {
                                 "description": "URL till en e-tjänst där användaren kan agera vidare. Kan till exempel användas för kundhändelser där kunden uppmanas att agera.",
-                                "type": "string"
+                                "$ref": "#/$defs/referens"
                             },
                             "api": {
                                 "description": "URL till ett API som ett konsumentsystem kan anropa för att hjälpa användaren med vidare agerande utifrån kundhändelsen.",
-                                "type": "string"
+                                "$ref": "#/$defs/referens"
                             }
                         },
                         "additionalProperties": true
@@ -178,5 +178,43 @@
         }
     },
     "required": [ "metadata" ],
-    "additionalProperties": false
+    "additionalProperties": false,
+    "$defs": {
+        "referens": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "$ref": "#/$defs/referensobjekt"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/referensobjekt"
+                    }
+                }
+            ],
+        },
+        "referensobjekt": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "description": "URL till något bakomliggande, t.ex. en e-tjänst eller ett API.",
+                    "type": "string"
+                },
+                "lanktext": {
+                    "description": "Den länktext som ska visas för användaren för länken till url:en. Denna länktext ska skrivas på samma språk som kundhändelsen är skriven på",
+                    "type": "string"
+                }
+            },
+        }
+
+    }
 }
