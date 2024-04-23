@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "KundhändelseResponse",
-    "description": "Svaret ifrån kundhändelse-API",
+    "description": "Svaret ifrån producentens kundhändelse-API",
     "type": "object",
     "properties": {
         "metadata": {
@@ -46,10 +46,6 @@
                     "required": [ "identifierare", "typ" ],
                     "additionalProperties": false
                 },
-                "anvandare": {
-                    "description": "Den användare som ställde frågan i konsument-systemet. Samma innehåll som parametern anvandare.",
-                    "type": "string"
-                },
                 "kundhandelseTyper": {
                     "description": "En lista med kundhändelsetyper som visar vilka som efterfrågades. Samma innehåll som parameter kundhandelseTyper.",
                     "type": "array",
@@ -72,6 +68,23 @@
                     "description": "Slutdatum för sökningen. Samma innehåll som parametern slutDatum",
                     "type": "string"
                 },
+                "anvandare": {
+                    "description": "Personnummer för användaren.  Samma innehåll som parametern anvandare",
+                    "type": "string"
+                },
+                "konsument": {
+                    "description": "Namn på konsumenten.  Samma innehåll som parametern konsument",
+                    "type": "string"
+                },
+                "konsumenttjanst": {
+                    "description": "Namn på konsumenttjänsten.  Samma innehåll som parametern konsumenttjanst",
+                    "type": "string"
+                },
+                "sessionID": {
+                    "description": "Ett ID som håller ihop alla delfrågor.  Samma innehåll som parametern sessionID",
+                    "type": "string",
+                    "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                },
                 "onskatSprak": {
                     "description": "Önskat språk för kundhändelser. Samma innehåll som parametern onskatSprak",
                     "type": "string"
@@ -79,7 +92,7 @@
                 "version": {
                     "description": "Version av Mina ärendes standard som producenten implementerat",
                     "type": "string",
-                    "enum": ["4.1", "4.0", "3.0", "2.0", "1.1", "1.0"]
+                    "enum": ["5.0","4.1", "4.0", "3.0", "2.0", "1.1", "1.0"]
                 }
             },
             "allOf": [
