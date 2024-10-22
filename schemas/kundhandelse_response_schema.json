@@ -158,7 +158,10 @@
                         "description": "Ett underliggande objekt med icke standardiserat data som är till för att stödja producenters specifika men olika behov. Namnsättning och funktionalitet för detta data skall beskrivas i producentens egen tjänstebeskrivning.",
                         "type": "object",
                         "properties": {
-
+                            "servicelofte": {
+                                "description": "Om en kundhändelse innebär att producenten lämnar något servicelöfte, dvs en utfästelse om hur lång tid det max skall ta innan kunden skall få sitt ärende avklarat kan det skrivas här. Servicelöftet uttrycks i text t ex 30 dagar",
+                                "type": "string"
+                            }
                         },
                         "additionalProperties": true
                     },

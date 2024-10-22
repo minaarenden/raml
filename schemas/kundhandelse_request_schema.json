@@ -79,11 +79,6 @@
 		"konsumenttjanst": {
 			"description": "Människo-läsbart namn på konsumenttjänsten (användargränssnittet)\r\nVidareförmedlingstjänsten kommer att skicka detta. I direktanslutningsfallet får det avtalas mellan konsumenttjänst och producent om det skall skickas på detta sätt eller om man använder någon annan mekanism för att säkerställa informationen i de fall den behövs",
 			"type": "string"
-		},
-		"sessionID": {
-			"description": "En fråga ifrån en konsumenttjänst till vidareförmedlingstjänsten kan potentiellt innebära att en specifik producent får flera delfrågor. Varje delfråga blir ett separat anrop till producentens API. För att kunna knyta ihop dessa anrop, framför allt i felsökningssyfte, så används ett sessionID där varje delfråga som kommer ifrån samma fråga ifrån konsumenttjänsten får samma värde.\r\rInnehåller en UUID i 8-4-4-4-12 format\r\nProducenten förväntas ta med detta ID i all loggning som är ett resultat av ett anrop till API:et",
-			"type": "string",
-			"pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
 		}
 	},
 	"anyOf": [

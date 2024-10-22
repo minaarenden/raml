@@ -2,7 +2,7 @@
 ---
 title: Mina ärendens standardiserade API för kundhändelser
 #baseUri:
-version: v3.1
+version: v6.0
 
 /kundhandelser:
   description: Hämtar en eller flera kundhändelser ifrån aktuell producents system. Kundhändelserna är kopplade till en person eller organisation (kund) och framtagna med ett urval specat i frågan.
@@ -14,6 +14,10 @@ version: v3.1
         type: string
       x-request-id:
         description: Varje anrop till producentens API behöver en unik identifierare i felsökningssyfte. I de fall anropen kommer ifrån vidareförmedlingstjänsten kommer detta värde att innehålla en UUID i 8-4-4-4-12 format
+        required: false
+        type: string
+      x-correlation-id:
+        description: Identifierar interaktionen med konsumentjänsten. Används eftersom en specifik producent kan få flera delfrågor som resultat av en speciik fråga ifrån konsumenttjänsten (ifall konsumenttjänsten frågar på flera parter). Alla dessa kommer i så fall att ha samma värde på detta id.
         required: false
         type: string
     body:
